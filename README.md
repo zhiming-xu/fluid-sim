@@ -9,14 +9,14 @@ Final Project Proposal: Position Based Fluids
 
 ### Position Based Fluids: Real-time Water Simulation
 
-In this project we will create an iterative density solver, integrated into the Position Based Dynamics framework (framework repository in resources). We hope to be able to create a method that allows for similar incompressibility and convergence to modern smoothed particle hydrodynamic solvers, but inherits the stability of the geometric, position based dynamics method, allowing large time steps suitable for real-time applications.
+In the lectures, we saw several demonstrations of fluids simulation and we all found it excited to discover the theory behind it and to implement it by ourselves. As we know, accurate stimulations of fluids can be applied in a really wide range of areas and the final effects are really cool. That is the reason why we are so driven to pursue this technical challenge.
 
-Members: Cheng Chen, Mingfang Zhang, Zhiming Xu 3034485754
+Members: Cheng Chen 3034488887, Mingfang Zhang 3034485741, Zhiming Xu 3034485754
 
 Problem Description
 -------------------
 
-The main problem in creating a water simulation like this is being able to simulate the fluid to match its real physical properties, which often times is computationally expensive and has impractical time step efficiency. However, accurate stimulations of fluids can be applied in anything between animation cinema to microfluidic modelling, which is why we are driven to pursue this technical challenge. On top of that, we thought that since in most of the projects so far have been focusing on solid objects, creating something to do with fluids could be an interesting and challenging final project for us to tackle.
+Creating a fluid simulation means that we should simulate the fluid to match its real physical properties, which always leads to a high level of time complexity.  We aim to create an iterative density solver in this project, which will be integrated into the position based dynamics framework. We hope to be able to create a method that allows for similar incompressibility and convergence to modern smoothed particle hydrodynamic solvers, but inherits the stability of the geometric, position based dynamics method, allowing large time steps suitable for real-time applications.
 
 Goals and Deliverables
 ----------------------
