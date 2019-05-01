@@ -14,11 +14,16 @@ While the Navier-Stokes equations can describe the fluid movement accurately, it
 
 > "It's a common misconception that visual effects are about simulating reality. They're not. Reality is boring. Visual effects are about simulating something dramatic."
 >
+<<<<<<< HEAD
 > \- Jonathan Cohen, Rhythm & Hue 
+=======
+> \- Jonathan Cohen, Rhythm&Hue 
+>>>>>>> e9275e6bc1382117413cea20c7d1cc03f14e2958
 
 As a result, we use Particle-Based simulations. In particular, we use a technique called Smoothed Particle Hydrodynamics (SPH).
 
 In SPH approach, Fluid volume is discretized by particles and each particles represents a certain amount of fluid volume.
+<<<<<<< HEAD
 
 $$V_i = m_i/\rho_i​$$
 
@@ -74,6 +79,29 @@ Up to now, we have basically implemented the algorithm described from the paper 
     	  <img src="images/coherent.png" align="middle" width=400px/>
   </table>
 </div>
+=======
+$$
+V_i=m_i/\rho_i
+$$
+Particles store attributes, and to evaluate an attribute, we take weighted average of particle values within a neighborhood. Smoothing kernel `W` prescribes interpolation weights.
+
+<img src="./images/1.png" width="350px" />
+
+Then we sum up contribution of neighboring particles j:
+$$
+A(x)=\sum_jm_j/\rho_j*A_jW(x-x_j,h)
+$$
+A(x): Quantity A at arbitrary position x; Sum: Sum over all neighbor particles j within h; Aj: Quantity A of particle j; W: Smoothing kernel.
+
+Up to now, we have basically implemented the algorithm described from the paper “Position-Based Fluids” by Macklin and Müller. Some key components are as follows.
+
+- **Particle Neighbor Finding**. With the help of a basic spatial hashmap.
+- **Density constraints**. In order to make the fluid resist compression, we calculate position correction $\bold{\Delta p_i}$ that satisfies the constraints $C(p+\Delta p)=0$, where $\begin{equation}C_i(p_1, \cdots, p_n) = \frac{\rho_i}{\rho_0} - 1\end{equation}$ and $\rho_i$ is the density at a particle evaluated by the *poly6 kernel*.
+- **Surface tension**. To address the particle clustering and clumping problem in *SPH simulations*, an artificial pressure term $s_{corr}$ is added in the particle position update. 
+- **Collision handling**. Implement collosions with planes to keep the fluid inside the box.
+- **Vorticity confinement**. Vorticity confinement is implemented to counteract undesirable additional damping introduced by position based methods. The vorticity at a particle is calculated and afterwards a corrective force is applied.
+- **XSPH viscosity**. XSPH viscosity is implemented for coherent motion.
+>>>>>>> e9275e6bc1382117413cea20c7d1cc03f14e2958
 
 However, the rendering procedure is far too slow and the fluid appears so coarse. We will set out to solve these problems in the remaining days.
 
