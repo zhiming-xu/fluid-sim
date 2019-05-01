@@ -10,7 +10,13 @@ Members: Zhiming Xu 3034485754, Mingfang Zhang 3034485741, Cheng Chen 3034488887
 
 ## Summary
 
-While the Navier-Stokes equations can describe the fluid movement accurately, it was too computationally expensive to implement it to simulate the fluid. "It's a common misconception that visual effects are about simulating reality. They're not. Reality is boring. Visual effects are about simulating something dramatic.", says Jonathan Cohen. As a result, we use Particle-Based simulations. In particular, we use a technique called Smoothed Particle Hydrodynamics (SPH).
+While the Navier-Stokes equations can describe the fluid movement accurately, it was too computationally expensive to implement it to simulate the fluid. 
+
+> "It's a common misconception that visual effects are about simulating reality. They're not. Reality is boring. Visual effects are about simulating something dramatic."
+>
+> \- Jonathan Cohen, Rhythm&Hue 
+
+As a result, we use Particle-Based simulations. In particular, we use a technique called Smoothed Particle Hydrodynamics (SPH).
 
 In SPH approach, Fluid volume is discretized by particles and each particles represents a certain amount of fluid volume.
 $$
