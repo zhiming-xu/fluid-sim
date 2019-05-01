@@ -20,7 +20,7 @@ As a result, we use Particle-Based simulations. In particular, we use a techniqu
 
 In SPH approach, Fluid volume is discretized by particles and each particles represents a certain amount of fluid volume.
 
-$$V_i = m_i/\rho_i​$$
+$$V_i = m_i/\rho_i$$
 
 Particles store attributes, and to evaluate an attribute, we take weighted average of particle values within a neighborhood. Smoothing kernel $W$ prescribes interpolation weights.
 
@@ -30,13 +30,16 @@ Particles store attributes, and to evaluate an attribute, we take weighted avera
   </table>
 </div>
 
-Then we sum up contribution of neighboring particles $j​$:
+Then we sum up contribution of neighboring particles $j$:
 
 $$A(x) = \sum_jm_j/\rho_j * A_jW(x-x_j,h)$$
 
 $A(x)$ : Quantity $A$ at arbitrary position $x$; 
+
 $\sum$ : Sum over all neighbor particles $j$ within $h$; 
+
 $A_j$ : Quantity $A$ of particle $j$; 
+
 $W$ : Smoothing kernel.
 
 Up to now, we have basically implemented the algorithm described from the paper “Position-Based Fluids” by Macklin and Müller. Some key components are as follows.
@@ -74,6 +77,7 @@ Up to now, we have basically implemented the algorithm described from the paper 
     	  <img src="images/coherent.png" align="middle" width=400px/>
   </table>
 </div>
+
 However, the rendering procedure is far too slow and the fluid appears so coarse. We will set out to solve these problems in the remaining days.
 
 ## Schedule Update
