@@ -38,9 +38,9 @@ void initRendering();
 void drawAxis();
 
 // Some constants
-const Vector3f LIGHT_POS(1.0f, 0.0f, 5.0f);
+const Vector3f LIGHT_POS(1.0f, 10.0f, 2.0f);
 const Vector3f LIGHT_COLOR(46, 123, 247);
-const Vector3f FLOOR_COLOR(252, 252, 252);
+const Vector3f FLOOR_COLOR(0, 0, 0);
 
 // time keeping
 // current "tick" (e.g. clock number of processor)
@@ -209,6 +209,7 @@ void stepSystem()
     const float TANK_END_Y = 1.0f;
     const float TANK_START_Z = -1.0f;
     const float TANK_END_Z = 1.0f;
+    // the procedure here is for collision detection
     for (int i = 0; i < (int)state.size() / 2; i++) {
         int randNum = rand() % 20 - 10;
         Vector3f pos = state[2*i];
@@ -217,10 +218,16 @@ void stepSystem()
             velocity = Vector3f(abs(velocity.x()), velocity.y(), velocity.z());
         if (pos.x() >= TANK_END_X)
             velocity = Vector3f(-0.3f*abs(velocity.x()), velocity.y(), velocity.z());
-        if (pos.y() <= TANK_START_Y) {
+        if (pos.y() <= TANK_START_Y + DROP_RADIUS)
+        {
             velocity = Vector3f(velocity.x() + randNum/100.0f, 0.6 * abs(velocity.y()) +
-                                1.0f*(5.0f-abs(randNum))/100.0f, velocity.z() + randNum / 100.0f);
+                                1.0f*(10.0f-abs(randNum))/100.0f, velocity.z() + randNum / 100.0f);
         }
+        if (pos.z() <= TANK_START_Z)
+            velocity = Vector3f(velocity.x(), velocity.y(), abs(velocity.z()));
+        if (pos.z() >= TANK_END_Z)
+            velocity = Vector3f(velocity.x(), velocity.y(), -.3*abs(velocity.z()));
+
 #ifdef threeD
         randNum = rand() % 10 - 5;
         if (pos.z() <= TANK_START_Z) {
@@ -247,7 +254,7 @@ void drawSystem()
 
     // set uniforms for floor
     gl.updateMaterial(FLOOR_COLOR);
-    gl.updateModelMatrix(Matrix4f::translation(0, -1.08, 0));
+    gl.updateModelMatrix(Matrix4f::translation(0, -1 - DROP_RADIUS, 0));
     // draw floor
     drawQuad(50.);
 }

@@ -7,51 +7,9 @@
 // note: 3D rendering on CPU can be rather slow
 // #define threeD
 
+float DROP_RADIUS;
+
 using namespace std;
-
-const float c_pi = 3.14159265358979323846f;
-
-const float TANK_STANDARD_MINUS = -1.0f;
-const float TANK_STANDARD_PLUS = 1.0f;
-#ifdef threeD
-const float PARTICLE_SPACING = 0.24f;
-#else
-const float PARTICLE_SPACING = 0.08f;
-#endif
-const float CELL_SPACING = 0.08f;
-
-const float TANK_START_X = TANK_STANDARD_MINUS;
-const float TANK_END_X = TANK_STANDARD_PLUS;
-const float TANK_START_Y = TANK_STANDARD_MINUS;
-const float TANK_END_Y = 0.0f;
-const float TANK_START_Z = TANK_STANDARD_MINUS;
-const float TANK_END_Z = 0.0f;
-
-const float GRID_START_X = TANK_STANDARD_MINUS - CELL_SPACING;
-const float GRID_END_X = TANK_STANDARD_PLUS + CELL_SPACING;
-const float GRID_START_Y = TANK_STANDARD_MINUS - CELL_SPACING;
-const float GRID_END_Y = 1.0f;
-const float GRID_START_Z = TANK_STANDARD_MINUS - CELL_SPACING;
-const float GRID_END_Z = 1.0f;
-
-const float NUM_X_INDICES = (GRID_END_X - GRID_START_X) / CELL_SPACING;
-const float NUM_Y_INDICES = (GRID_END_Y - GRID_START_Y) / CELL_SPACING;
-const float NUM_Z_INDICES = (GRID_END_Z - GRID_START_Z) / CELL_SPACING;
-#ifdef threeD
-const float NUM_TOTAL_INDICES = NUM_X_INDICES * NUM_Y_INDICES * NUM_Z_INDICES;
-#else
-const float NUM_TOTAL_INDICES = NUM_X_INDICES * NUM_Y_INDICES;
-#endif
-const float NEIGHBOR_RADIUS = CELL_SPACING;
-
-const float GRAVITY = -50.0f;
-const float MASS = 1.0f;
-const float H_KERNEL = 1.5f;
-const float K_GAS_CONSTANT = 0.01f;
-
-const float MU = 0.0000001f;
-const float REST_DENSITY = 0.001f;
-const float SINGLE_PARTICLE_DENSITY = 10.f;
 
 int FluidSim::pos_to_grid_index(float x, float y, float z) {
     int xIndex = (x - GRID_START_X) / CELL_SPACING;
@@ -72,6 +30,7 @@ void FluidSim::clear_grid() {
 FluidSim::FluidSim()
 {
     // single particle that is dropped
+    DROP_RADIUS = .04;
     vector<Vector3f> initialState;  // it is a tuple, (position, speed)
     vector<vector<int>> initialGrid;
     
@@ -171,12 +130,12 @@ std::vector<Vector3f> FluidSim::compute_force(std::vector<Vector3f> state) {
 
 void FluidSim::draw(GLProgram& gl)
 {
-    const Vector3f PENDULUM_COLOR(0.5f, 0.8f, 1.0f);
-    gl.updateMaterial(PENDULUM_COLOR);
+    const Vector3f SPHERE_COLOR(0., 0., 0.);
+    gl.updateMaterial(SPHERE_COLOR);
     vector<Vector3f> currentState = get_state();
     for (int i=0; i<(int) currentState.size()/2; ++i) {
       gl.updateModelMatrix(Matrix4f::translation(get_position_i(currentState, i)));
-      drawSphere(0.05f, 10, 10);
+      drawSphere(DROP_RADIUS, 10, 10);
     }
 }
 
