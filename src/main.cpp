@@ -20,7 +20,7 @@
 #include "timestepper.h"
 #include "fluidsim.h"
 // define this macro to run in 3D
-// #define threeD
+#define threeD
 
 using namespace std;
 

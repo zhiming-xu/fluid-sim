@@ -5,7 +5,7 @@
 #include "vertexrecorder.h"
 // to render in 3D, define this macro,
 // note: 3D rendering on CPU can be rather slow
-// #define threeD
+#define threeD
 
 float DROP_RADIUS;
 
@@ -25,6 +25,29 @@ int FluidSim::pos_to_grid_index(float x, float y, float z) {
 void FluidSim::clear_grid() {
     for(auto &grid: systemGrid)
         grid = std::vector<int>();
+}
+
+float getDis(float x, float y, float z, float cx, float cy, float cz) {
+  return sqrt((pow(x-cx,2) + pow(y-cy,2) + pow(z-cz,2)));
+}
+
+float getMin(float a, float b, float c) {
+  float d = min(a,b);
+  float e = min(a,c);
+  return min(d,e);
+}
+
+bool inCircle(float x, float y, float z) {
+  float cx = 0;//(TANK_END_X - TANK_START_X)/2;
+  float cy = -(TANK_END_Y - TANK_START_Y)/2;
+  float cz = -(TANK_END_Z - TANK_START_Z)/2;
+
+  float radius = getMin(TANK_END_X - TANK_START_X, TANK_END_Y - TANK_START_Y, TANK_END_Z - TANK_START_Z)/2;
+
+  if (getDis(x,y,z,cx,cy,cz) < radius)
+    return true;
+  else
+    return false;
 }
 
 FluidSim::FluidSim()
@@ -49,6 +72,8 @@ FluidSim::FluidSim()
             for (z = TANK_START_Z; z < TANK_END_Z; z += PARTICLE_SPACING)
 #endif
             {
+
+              if (!inCircle(x,y,z)) continue;
             //populate the initial grid with current index
             int gridIndex = FluidSim::pos_to_grid_index(x, y, z);
             Vector3f position = Vector3f(x, y + 2, z);
