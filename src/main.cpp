@@ -210,15 +210,16 @@ void stepSystem()
     const float TANK_START_Z = -1.0f;
     const float TANK_END_Z = 1.0f;
     for (int i = 0; i < (int)state.size() / 2; i++) {
-        int randNum = rand() % 10 - 5;
+        int randNum = rand() % 20 - 10;
         Vector3f pos = state[2*i];
         Vector3f velocity = state[2*i+1];
         if (pos.x() <= TANK_START_X)
-            velocity = Vector3f(abs(velocity.x()), velocity.y(), 0.0f);
+            velocity = Vector3f(abs(velocity.x()), velocity.y(), velocity.z());
         if (pos.x() >= TANK_END_X)
-            velocity = Vector3f(-0.3f*abs(velocity.x()), velocity.y(), 0.0f);
+            velocity = Vector3f(-0.3f*abs(velocity.x()), velocity.y(), velocity.z());
         if (pos.y() <= TANK_START_Y) {
-            velocity = Vector3f(velocity.x() + 1.0f*randNum/200.0f, 0.4 * abs(velocity.y()) + 1.0f*(5.0f-abs(randNum))/100.0f, 0.0f);
+            velocity = Vector3f(velocity.x() + randNum/100.0f, 0.6 * abs(velocity.y()) +
+                                1.0f*(5.0f-abs(randNum))/100.0f, velocity.z() + randNum / 100.0f);
         }
 #ifdef threeD
         randNum = rand() % 10 - 5;
@@ -246,9 +247,9 @@ void drawSystem()
 
     // set uniforms for floor
     gl.updateMaterial(FLOOR_COLOR);
-    gl.updateModelMatrix(Matrix4f::translation(0, -1.08f, 0));
+    gl.updateModelMatrix(Matrix4f::translation(0, -1.08, 0));
     // draw floor
-    drawQuad(50.0f);
+    drawQuad(50.);
 }
 
 //-------------------------------------------------------------------
