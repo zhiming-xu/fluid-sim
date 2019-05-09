@@ -2,7 +2,12 @@
 #include "camera.h"
 #include <random>
 #include <cstdio>
+#ifdef __APPLE__
+#include <OpenGL/gl3.h>
+#define GLFW_INCLUDE_GLCOREARB
+#else
 #include <GL/glew.h>
+#endif
 
 float rand_uniform(float low, float hi) {
    float abs = hi - low;

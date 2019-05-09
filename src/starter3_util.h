@@ -2,7 +2,12 @@
 #define STARTER1_UTIL_H
 
 #include <cstdint>
+#ifdef __APPLE__
+#include <OpenGL/gl3.h>
+#define GLFW_INCLUDE_GLCOREARB
+#else
 #include <GL/glew.h>
+#endif
 
 float deg2rad(float deg);
 float rad2deg(float rad);

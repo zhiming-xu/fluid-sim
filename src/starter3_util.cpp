@@ -1,6 +1,11 @@
 #include "starter3_util.h"
 
+#ifdef __APPLE__
+#include <OpenGL/gl3.h>
+#define GLFW_INCLUDE_GLCOREARB
+#else
 #include <GL/glew.h>
+#endif
 #include <GLFW/glfw3.h>
 #include <cstdio>
 #include <cstring>
