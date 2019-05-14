@@ -125,11 +125,11 @@ After calculating forces by the methods stated above, we need to apply them on t
 
   This method is more accurate and stable since it uses three slopes four times to estimate integration, once at the beginning and end of the time interval, twice in the middle. Concretely, given the force $\vec{f_1}=\vec{f}(t)$ on state $\vec{X}(t)$, it first uses forward Euler on half of the interval $t/2$ to obtain an intermedium state $\vec{X'}(t+\Delta t/2)$, and the force acting on it, $\vec{f_2}=\vec{f}\left(\vec{X'}(t+\Delta t/2), t+\Delta t/2\right)$. The apply $\vec{f_2}$ on the initial state for half the time interval to obtain another intermedium state $\vec{X''}(t+\Delta t/2)$ and force acting on it, $\vec{f_3}=\vec{f}\left(\vec{X''}(t+\Delta t/2), t+\Delta t/2\right)$. In the end, apply $\vec{f_3}$ on the whole time interval to obtain a rough estimation of next state $\vec{X'}(t+\Delta t)$ and the force acting on it, $\vec{f_4}=\vec{f}(\vec{X'}(t+\Delta t), t+\Delta t)$. In the end, we do a weighted sum of these factors to give the truly estimation of the integration and thus the next state $\vec{X}(t+\Delta t)$, i.e., $$\vec{X}(t+\Delta t)=\vec{X}(t)+\cfrac{h}{6}\left(\vec{f_1}+2\vec{f_2}+2\vec{f_3}+\vec{f_4} \right)$$.
 
-A simple illustration is shown below. We use the three different methods to estimate $\exp(x)$ from the original point. The interval is set to $.05$ and $.15$, respectively. It is obvious that with a large integration interval, the error tends to be larger and accumulates over time.
+A simple illustration is shown below. We use the three different methods to estimate $\ln(x)$ from $0.1$. The interval is set to $.05$ and $.5$, respectively. It is obvious that with a large integration interval, the error tends to be more enormous and accumulates over time. Note that for Euler method, the curve begin to diverge from true function shortly after starting, and the error grow larger and larger when interval is $0.5$, far less stable than trapezoid and RK4.
 
-![first](./images/size-5.png)
+![first](./images/logsize05.png)
 
-![second](./images/size-15.png)
+![second](./images/logsize5.png)
 
 **Problems encountered**
 
@@ -149,11 +149,18 @@ One of the critical lesson we've learned is to walk through several academic res
 
 Below is a demonstration of our results with xxx shading:
 
+
+
+##### <center>[Click here for final slides]()</center>
+
+#####<center>[Click here for final video]()</center> 
+
 ### References
 
 - [Smoothed Particle Hydrodynamics](http://adsabs.harvard.edu/full/1992ARA%26A..30..543M)
 - [Position Based Fluids[Macklin, Muller]](http://mmacklin.com/pbf_sig_preprint.pdf)
 - [FLUID SIMULATION SIGGRAPH 2007 Course Notes](https://www.cs.ubc.ca/~rbridson/fluidsimulation/fluids_notes.pdf)
+- 
 
 ### Contributions from each team member
 
@@ -185,12 +192,7 @@ $$V_i = m_i/\rho_i$$
 
 Particles store attributes, and to evaluate an attribute, we take weighted average of particle values within a neighborhood. Smoothing kernel $W$ prescribes interpolation weights.
 
-<div align="middle">
-  <table style="width=100%">
-        <img src="images/1.png" align="middle" width=300px/>
-  </table>
-</div>
-
+<img src="./images/4.png" width="300px" />
 
 Then we sum up contribution of neighboring particles $j$:
 
