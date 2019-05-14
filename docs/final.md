@@ -117,8 +117,6 @@ After calculating forces by the methods stated above, we need to apply them on t
 
   Given a state $\vec{X}(t)$ and force $\vec{f}(\vec{X}, t)$ at time $t$, and time interval $\Delta h$, we update the new state to $\vec{X}(t+\Delta t)=\vec{X}(t)+\Delta t\vec{f}(\vec{X}, t)$, which is just the Newton's second law using current state's acceleration as the acceleration over time interval $\Delta t$. This is very simple and tend to be unstable and diverge for more complicated particle system.
 
-  *insert gif for this*
-
 - Trapezoid rule
 
   In this method, we use two slopes to estimate the true integration over time. Specifically, after we get the force $\vec{f}(\vec{X}, t)$ at this time, we first apply Euler method on it to obtain the next state $\vec{X'}(t+\Delta t)$. But we do not use it directly as result, but compute force $\vec{f}(\vec{X'}(t+\Delta t), t+\Delta t)$. Then use the average of these two forces as the estimation of the force applied on our particles during time interval $\Delta t$ from $t$. Hence, the average acceleration is: $$\bar{\vec{f}}=\cfrac{1}{2}\left(\vec{f}(\vec{X}, t)+\vec{f}(\vec{X'}(t+\Delta t)) \right)$$, and the new state is updated to $$\vec{X}(t+\Delta t)=\vec{X}+\Delta t\bar{\vec{f}}$$.
