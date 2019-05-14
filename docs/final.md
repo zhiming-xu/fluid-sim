@@ -109,13 +109,29 @@ $$
 a_i=(f_i^{pressure}+f_i^{viscosity}+f_i^{gravity})/\rho_i
 $$
 
+#### Numerical integration
 
+After calculating forces by the methods stated above, we need to apply them on the particles we have. Therefore, we use numerical integration to compute particles' displacements under the force $\vec{f}$ and thus their next states. We implement three integration methods in our project: explicit Euler, trapezoidal, and Runge-Kutta method (4th order). The ideas behind them are listed as follows. In this part, for simplicity, we do not distinguish force $\vec{f}$ and acceleration $\vec{a}$.
 
-#### Time Integration
+- Explicit Euler
 
-Afterwards, we implement three different integration methods to update particle position.
+  Given a state $\vec{X}(t)$ and force $\vec{f}(\vec{X}, t)$ at time $t$, and time interval $\Delta h$, we update the new state to $\vec{X}(t+\Delta t)=\vec{X}(t)+\Delta t\vec{f}(\vec{X}, t)$, which is just the Newton's second law using current state's acceleration as the acceleration over time interval $\Delta t$. This is very simple and tend to be unstable and diverge for more complicated particle system.
 
+  *insert gif for this*
 
+- Trapezoid rule
+
+  In this method, we use two slopes to estimate the true integration over time. Specifically, after we get the force $\vec{f}(\vec{X}, t)$ at this time, we first apply Euler method on it to obtain the next state $\vec{X'}(t+\Delta t)$. But we do not use it directly as result, but compute force $\vec{f}(\vec{X'}(t+\Delta t), t+\Delta t)$. Then use the average of these two forces as the estimation of the force applied on our particles during time interval $\Delta t$ from $t$. Hence, the average acceleration is: $$\bar{\vec{f}}=\cfrac{1}{2}\left(\vec{f}(\vec{X}, t)+\vec{f}(\vec{X'}(t+\Delta t)) \right)$$, and the new state is updated to $$\vec{X}(t+\Delta t)=\vec{X}+\Delta t\bar{\vec{f}}$$.
+
+- Runge-Kutta method (4th order)
+
+  This method is more accurate and stable since it uses three slopes four times to estimate integration, once at the beginning and end of the time interval, twice in the middle. Concretely, given the force $\vec{f_1}=\vec{f}(t)$ on state $\vec{X}(t)$, it first uses forward Euler on half of the interval $t/2$ to obtain an intermedium state $\vec{X'}(t+\Delta t/2)$, and the force acting on it, $\vec{f_2}=\vec{f}\left(\vec{X'}(t+\Delta t/2), t+\Delta t/2\right)$. The apply $\vec{f_2}$ on the initial state for half the time interval to obtain another intermedium state $\vec{X''}(t+\Delta t/2)$ and force acting on it, $\vec{f_3}=\vec{f}\left(\vec{X''}(t+\Delta t/2), t+\Delta t/2\right)$. In the end, apply $\vec{f_3}$ on the whole time interval to obtain a rough estimation of next state $\vec{X'}(t+\Delta t)$ and the force acting on it, $\vec{f_4}=\vec{f}(\vec{X'}(t+\Delta t), t+\Delta t)$. In the end, we do a weighted sum of these factors to give the truly estimation of the integration and thus the next state $\vec{X}(t+\Delta t)$, i.e., $$\vec{X}(t+\Delta t)=\vec{X}(t)+\cfrac{h}{6}\left(\vec{f_1}+2\vec{f_2}+2\vec{f_3}+\vec{f_4} \right)$$.
+
+A simple illustration is shown below. We use the three different methods to estimate $\exp(x)$ from the original point. The interval is set to $.05$ and $.15$, respectively. It is obvious that with a large integration interval, the error tends to be larger and accumulates over time.
+
+![first](./images/size-5.png)
+
+![second](./images/size-15.png)
 
 **Problems encountered**
 
