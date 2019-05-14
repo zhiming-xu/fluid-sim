@@ -12,17 +12,106 @@
 
 ### Abstract
 
-We read the Smoothed Particle Hydronamics paper by $J. J. Monaghan$ and the Position Based Fluids paper by $Macklin$ and $Müller$, and finally build a fluid simulator based on the simplified algorithm which is basically the SPH method. This technique combines pressure, viscosity and gravity to simulate water. We firstly implement the basic mathematical and physical simulation model. Afterwards, we polish our shader programs to create fantastic lighting effects.
+We read the Smoothed Particle Hydrodynamics paper by $J. J. Monaghan$ and the Position Based Fluids paper by $Macklin$ and $Müller$, and finally build a fluid simulator based on the simplified algorithm which is basically the SPH method. This technique combines pressure, viscosity and gravity to simulate water. We firstly implement the basic mathematical and physical simulation model. Afterwards, we polish our shader programs to create fantastic lighting effects.
 
 ### Technical approach and implementation
+
+#### Program Pipeline
 
 We can show either 2D or 3D simulation by commenting out or defining a c++​ macro. In 3D Particle Fluid Simulation, at the very beginning, we set up a ground plane and four virtual surrounding walls with which the particles collide. Our approach then can be divided into two main parts — collision detection and system update, force application and time step integration.
 
 We've learned from class the approach of collision detection and correction and it's time we put it into good use.
 
-Our calculation of total simulation force exerted on a single particle is a combination of three components which comes from pressure, viscosity and gravity.
+#### Smoothed-particle hydrodynamics
+
+Fluid simulation is a common challenge in computer graphics, and one that illustrates the need for efﬁcient physical models. While physically accurate simulations of ﬂuid dynamics can be conducted by solving the **Navier-Stokes equations** exactly, this is computationally expensive in general, and as such is often not suitable for graphics applications, especially those that are meant to run in real time.
+
+<img src="./images/1.png" width="280px" />
+
+Therefore, an active area of research has been to search for more efﬁcient discretizations of ﬂuids. Particle-based simulations are attractive in this regard due to their relative simplicity. As a result, we built a fluid simulator based on the SPH method. 
+
+SPH method is being increasingly used to model fluid motion, which has several benefits. First, SPH guarantees conservation of mass without extra computation since the particles themselves represent mass. Second, SPH computes pressure from weighted contributions of neighboring particles rather than by solving linear systems of equations.  For these reasons, it is possible to simulate fluid motion using SPH in real time.
+
+Specifically, since we consider fluid as particles, there are several things we can ignore from the Navier-Stokes Equation, so that we get a simplified version like this:
+
+<img src="./images/2.png" width="200px" />
+
+And then we follow a computing pipeline:
+
+<img src="./images/3.png" width="800px" />
+
+Let's solve them one by one. (Assume that we already have a convenient data structure to store a particles' neighbors)
+
+**Generally**, we want to compute some quantity A at an arbitrary position in space, we can use the equation:
+$$
+A(x)=\sum_jm_j/\rho_jA_jW(x-x_j,h)
+$$
+In which W is a smoothing kernel like this:
+
+<img src="./images/4.png" width="300px" />
+
+To calculate the **density**, attribute A is now $\rho$ :
+$$
+\rho_i=\sum_jm_jW_{ij}
+$$
+In which W is:
+
+<img src="./images/5.png" width="350px" />
+
+<img src="./images/8.png" width="200px" />
+
+So we implement it like this:
+
+<img src="./images/d.png" width="400px" />
+
+Then we can calculate **pressure** from density:
+$$
+p_i=k(\rho_i-\rho_0)
+$$
+And the **force of pressure** would be:
+$$
+f^{pressure}=-\nabla p
+$$
+Since pressure force acts along vector between particles, we use the formula of attribute A like this:
+$$
+f^{pressure}=-\sum_jm_j/\rho_j*(p_i+p_j)/2\nabla W_{ij}
+$$
+In which W is:
+
+<img src="./images/6.png" width="350px" />
+
+<img src="./images/9.png" width="180px" />
+
+So we implement it like this:
+
+<img src="./images/p.png" width="450px" />
+
+Then we calculate the **viscosity** using the formula of A and since once again we need to make forces symmetric, we have:
+$$
+f_i^{viscosity}=\mu \sum_jm_j/\rho_j*(u_j-u_i)\nabla^2W_{ij}
+$$
+In which W is:
+
+<img src="./images/7.png" width="350px" />
+
+<img src="./images/10.png" width="150px" />
+
+So we implement it like this:
+
+<img src="./images/v.png" width="400px" />
+
+And finally we apply **gravity**:
+$$
+f_i^{gravity}=\rho_ig
+$$
+Now we can get the **acceleration** used for time integration:
+$$
+a_i=(f_i^{pressure}+f_i^{viscosity}+f_i^{gravity})/\rho_i
+$$
 
 
+
+#### Time Integration
 
 Afterwards, we implement three different integration methods to update particle position.
 

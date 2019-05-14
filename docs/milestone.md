@@ -26,7 +26,7 @@ Particles store attributes, and to evaluate an attribute, we take weighted avera
 
 <div align="middle">
   <table style="width=100%">
-        <img src="images/1.png" align="middle" width=400px/>
+        <img src="images/m1.png" align="middle" width=400px/>
   </table>
 </div>
 
@@ -59,7 +59,7 @@ Up to now, we have basically implemented the algorithm described from the paper 
     	  <img src="images/Density.png" align="middle" width=400px/>
   </table>
 </div>
-**Surface tension**. To address the particle clustering and clumping problem in *SPH simulations*, an artificial pressure term $s_{corr}​$ is added in the particle position update. 
+**Surface tension**. To address the particle clustering and clumping problem in *SPH simulations*, an artificial pressure term $s_{corr}$ is added in the particle position update. 
 
 <div align="middle">
   <table style="width=100%">
