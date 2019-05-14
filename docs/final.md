@@ -151,6 +151,12 @@ One of the critical lesson we've learned is to walk through several academic res
 
 Below is a demonstration of our results with xxx shading:
 
+
+
+##### <center>[Click here for final slides]()</center>
+
+#####<center>[Click here for final video]()</center> 
+
 ### References
 
 - [Smoothed Particle Hydrodynamics](http://adsabs.harvard.edu/full/1992ARA%26A..30..543M)
