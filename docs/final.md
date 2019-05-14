@@ -129,9 +129,9 @@ After calculating forces by the methods stated above, we need to apply them on t
 
 A simple illustration is shown below. We use the three different methods to estimate $\ln(x)$ from $0.1$. The interval is set to $.05$ and $.5$, respectively. It is obvious that with a large integration interval, the error tends to be more enormous and accumulates over time. Note that for Euler method, the curve begin to diverge from true function shortly after starting, and the error grow larger and larger when interval is $0.5$, far less stable than trapezoid and RK4.
 
-![first](./images/logsize5.png)
+![first](./images/logsize05.png)
 
-![second](./images/logsize05.png)
+![second](./images/logsize5.png)
 
 **Problems encountered**
 
