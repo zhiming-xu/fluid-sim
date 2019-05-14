@@ -129,7 +129,7 @@ The next issue is about
 
 **Lessons learned**
 
-One of the critical lesson we've learned is to walk through several academic research paper and adjust the formulas and algorithm pseudo codes into mathematical and physical simulation model according to our project code structure.
+One of the critical lesson we've learned is to walk through several academic research paper and adjust the formulas and algorithm pseudo codes into mathematical and physical simulation model fitting our project code structure.
 
 ### Results
 
@@ -173,9 +173,10 @@ Particles store attributes, and to evaluate an attribute, we take weighted avera
 
 <div align="middle">
   <table style="width=100%">
-        <img src="images/1.png" align="middle" width=400px/>
+        <img src="images/1.png" align="middle" width=300px/>
   </table>
 </div>
+
 
 Then we sum up contribution of neighboring particles $j$:
 
@@ -193,27 +194,10 @@ Up to now, we have basically implemented the algorithm described from the paper 
 
 **Particle Neighbor Finding**. With the help of a basic spatial hashmap.
 
-<div align="middle">
-  <table style="width=100%">
-    	  <img src="images/neighbor.png" align="middle" width=400px/>
-  </table>
-</div>
-
 **Density constraints**. In order to make the fluid resist compression, we calculate position correction $\bold{\Delta p_i}$ that satisfies the constraints $C(p+\Delta p)=0$, where $\begin{equation}C_i(p_1, \cdots, p_n) = \frac{\rho_i}{\rho_0} - 1\end{equation}$ and $\rho_i$ is the density at a particle evaluated by the *poly6 kernel*.
-
-<div align="middle">
-  <table style="width=100%">
-    	  <img src="images/Density.png" align="middle" width=400px/>
-  </table>
-</div>
 
 **Surface tension**. To address the particle clustering and clumping problem in *SPH simulations*, an artificial pressure term $s_{corr}$ is added in the particle position update. 
 
-<div align="middle">
-  <table style="width=100%">
-    	  <img src="images/scorr.png" align="middle" width=400px/>
-  </table>
-</div>
 
 **Collision handling**. Implement collosions with planes to keep the fluid inside the box.
 
@@ -221,11 +205,6 @@ Up to now, we have basically implemented the algorithm described from the paper 
 
 **XSPH viscosity**. XSPH viscosity is implemented for coherent motion.
 
-<div align="middle">
-  <table style="width=100%">
-    	  <img src="images/coherent.png" align="middle" width=400px/>
-  </table>
-</div>
 
 However, the rendering procedure is far too slow and the fluid appears so coarse. We will set out to solve these problems in the remaining days.
 
