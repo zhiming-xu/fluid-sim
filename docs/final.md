@@ -1,7 +1,5 @@
 # <center>CS 184: Computer Graphics and Imaging</center>
 
-[TOC]
-
 ## <center>Final Project: Smoothed Particle Hydrodynamics</center>
 
 ##### <center>Created by Zhiming Xu, Mingfang Zhang, [Cheng Chen](https://github.com/Julius-c)</center>
@@ -171,7 +169,9 @@ To begin with, a bug in collision correction part leads to our particles' leakin
 
 After navigating through according code block, we locate our calculation bug and successfully address this issue.
 
-The next issue is about particles explosion.
+The next issue is, the particles exploded instead of falling smoothly. We finally find out the reason — improper kernel size.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eia6cN3vk0Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 #### Lessons learned
 
@@ -179,24 +179,34 @@ One of the critical lesson we've learned is to walk through several academic res
 
 ### Results
 
-Below is a demonstration of our results with xxx shading:
+Below are demonstrations of our results:
 
-##### <center>[Click here for final slides]()</center>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/riUQ3NTPWBM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<figcaption style="font-size: 15px">Spherial Fluid Simulation</figcaption>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IDq4pbW10pk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<figcaption style="font-size: 15px">Cubic Fluid Simulation</figcaption>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/grtzeG1ofiU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<figcaption style="font-size: 15px">Top View</figcaption>
+</center>
 
-#####<center>[Click here for final video]()</center> 
+##### <center>[Click here for final slides](https://drive.google.com/file/d/1hX_K0hC8ApiREQ9h3jXu4GPHPGn5yYGq/view?usp=sharing)</center>
+
+#####<center>[Click here for final video](https://youtu.be/ViiRs3EmTss)</center> 
 
 ### References
 
 - [Smoothed Particle Hydrodynamics](http://adsabs.harvard.edu/full/1992ARA%26A..30..543M)
 - [Position Based Fluids[Macklin, Muller]](http://mmacklin.com/pbf_sig_preprint.pdf)
+- [MIT Open Course](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-837-computer-graphics-fall-2012/)
 - [FLUID SIMULATION SIGGRAPH 2007 Course Notes](https://www.cs.ubc.ca/~rbridson/fluidsimulation/fluids_notes.pdf)
 - [OpenGL tutorial](http://www.opengl-tutorial.org/)
 
 ### Contributions from each team member
 
+- Cheng Chen worked on set up starter environment and infrastructure. Additionally, he implemented object-plane collision detection and correction.
 - Zhiming Xu worked on modeling different integration methods, as well as polishing shader programs.
 - Mingfang Zhang worked on implementing basic SPH algorithm, code for calculation of pressure, viscosity and gravity.
-- Cheng Chen worked on set up starter environment and infrastructure. Additionally, he implemented object-plane collision detection and correction.
 
 All three of us worked on creating slides, videos and reports.
 
