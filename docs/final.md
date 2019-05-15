@@ -62,7 +62,17 @@ In which W is:
 
 So we implement it like this:
 
-<img src="./images/d.png" width="400px" />
+```python
+def compute_density(...):
+    ...
+    for each neigboring particles j:
+      float index = nearestParticles.at(j)
+      Vector3f x_j = get_position_i(state, index)
+      float r = (x_i - x_j).abs()
+      float W = compute_kernel(Poly6, r)
+      density += MASS * W
+  return density
+```
 
 Then we can calculate **pressure** from density:
 $$
@@ -84,7 +94,18 @@ In which W is:
 
 So we implement it like this:
 
-<img src="./images/p.png" width="450px" />
+```python
+def compute_pressure(...)
+	for each neighboring particles j:
+    	float density_j = particleDensity.at(j)
+    	Vector3f r_ij = x_i - x_j
+    	float q_ij = r_ij.abs() / H_KERNEL
+    	float numerator1 = density_i + density_j - 2 * REST_DENSITY
+    	float numerator2 = pow((1 - q_ij), 2)
+    	force += MASS * numerator1 * numerator2 * r_ij / (density_j * q_ij)
+  force = force * K_GAS_CONSTANT / (c_pi * pow(H_KERNEL, 4))
+  return force;
+```
 
 Then we calculate the **viscosity** using the formula of A and since once again we need to make forces symmetric, we have:
 $$
@@ -98,7 +119,13 @@ In which W is:
 
 So we implement it like this:
 
-<img src="./images/v.png" width="400px" />
+```python
+def compute_viscocity(...):
+    for each neighboring particles j:
+        force += MASS * (v_i - v_j) * (1 - q_ij) / density_j
+    force = force * 40 * MU / (c_pi * pow(H_KERNEL, 4))
+    return force
+```
 
 And finally we apply **gravity**:
 $$
@@ -123,7 +150,10 @@ After calculating forces by the methods stated above, we need to apply them on t
 
 - Runge-Kutta method (4th order)
 
-  This method is more accurate and stable since it uses three slopes four times to estimate integration, once at the beginning and end of the time interval, twice in the middle. Concretely, given the force $\vec{f_1}=\vec{f}(t)$ on state $\vec{X}(t)$, it first uses forward Euler on half of the interval $t/2$ to obtain an intermedium state $\vec{X'}(t+\Delta t/2)$, and the force acting on it, $\vec{f_2}=\vec{f}\left(\vec{X'}(t+\Delta t/2), t+\Delta t/2\right)$. The apply $\vec{f_2}$ on the initial state for half the time interval to obtain another intermedium state $\vec{X''}(t+\Delta t/2)$ and force acting on it, $\vec{f_3}=\vec{f}\left(\vec{X''}(t+\Delta t/2), t+\Delta t/2\right)$. In the end, apply $\vec{f_3}$ on the whole time interval to obtain a rough estimation of next state $\vec{X'}(t+\Delta t)$ and the force acting on it, $\vec{f_4}=\vec{f}(\vec{X'}(t+\Delta t), t+\Delta t)$. In the end, we do a weighted sum of these factors to give the truly estimation of the integration and thus the next state $\vec{X}(t+\Delta t)$, i.e., $$\vec{X}(t+\Delta t)=\vec{X}(t)+\cfrac{h}{6}\left(\vec{f_1}+2\vec{f_2}+2\vec{f_3}+\vec{f_4} \right)$$.
+  This method is more accurate and stable since it uses three slopes four times to estimate integration, once at the beginning and end of the time interval, twice in the middle. Concretely, given the force $\vec{f_1}=\vec{f}(t)$ on state $\vec{X}(t)$, it first uses forward Euler on half of the interval $t/2$ to obtain an intermedium state $\vec{X'}(t+\Delta t/2)$, and the force acting on it, $\vec{f_2}=\vec{f}\left(\vec{X'}(t+\Delta t/2), t+\Delta t/2\right)$. The apply $\vec{f_2}$ on the initial state for half the time interval to obtain another intermedium state $\vec{X''}(t+\Delta t/2)$ and force acting on it, $\vec{f_3}=\vec{f}\left(\vec{X''}(t+\Delta t/2), t+\Delta t/2\right)$. In the end, apply $\vec{f_3}$ on the whole time interval to obtain a rough estimation of next state $\vec{X'}(t+\Delta t)$ and the force acting on it, $\vec{f_4}=\vec{f}(\vec{X'}(t+\Delta t), t+\Delta t)$. In the end, we do a weighted sum of these factors to give the truly estimation of the integration and thus the next state $\vec{X}(t+\Delta t)$, i.e., 
+  $$
+  \vec{X}(t+\Delta t)=\vec{X}(t)+\cfrac{h}{6}\left(\vec{f_1}+2\vec{f_2}+2\vec{f_3}+\vec{f_4} \right).
+  $$
 
 A simple illustration is shown below. We use the three different methods to estimate $\ln(x)$ from $0.1$. The interval is set to $.05$ and $.5$, respectively. It is obvious that with a large integration interval, the error tends to be more enormous and accumulates over time. Note that for Euler method, the curve begin to diverge from true function shortly after starting, and the error grow larger and larger when interval is $0.5$, far less stable than trapezoid and RK4.
 
@@ -131,7 +161,7 @@ A simple illustration is shown below. We use the three different methods to esti
 
 ![second](./images/logsize5.png)
 
-**Problems encountered**
+### Problems encountered
 
 Throughout the course of our implementation journey, we encountered a couple of different technical problems.
 
@@ -141,7 +171,7 @@ After navigating through according code block, we locate our calculation bug and
 
 The next issue is about 
 
-**Lessons learned**
+### Lessons learned
 
 One of the critical lesson we've learned is to walk through several academic research paper and adjust the formulas and algorithm pseudo codes into mathematical and physical simulation model fitting our project code structure. Another lesson is that the basic infrastructure is very important. Lack of GPU and parallelization techniques have limited our computational power and we have to record our result video by the help of CPU. Additionally, the papers we've read enhanced us a lot about the theory behind fluid dynamics and particle simulation. Finally, together with teammates to tackle obstacles such as git version control, mysterious coding bugs is quite interesting and challenging.
 
