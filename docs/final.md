@@ -1,10 +1,12 @@
 # <center>CS 184: Computer Graphics and Imaging</center>
 
+[TOC]
+
 ## <center>Final Project: Smoothed Particle Hydrodynamics</center>
 
-#### <center>Created by Zhiming Xu, Mingfang Zhang, [Cheng Chen](https://github.com/Julius-c)</center>
+##### <center>Created by Zhiming Xu, Mingfang Zhang, [Cheng Chen](https://github.com/Julius-c)</center>
 
-#### <center>SIDs: 3034485754, 3034485741, 3034488887</center>
+##### <center>SIDs: 3034485754, 3034485741, 3034488887</center>
 
 ##### <center>[Click here for project milestone](#milestone)</center>
 
@@ -161,25 +163,21 @@ A simple illustration is shown below. We use the three different methods to esti
 
 ![second](./images/logsize5.png)
 
-### Problems encountered
+#### Problems encountered
 
 Throughout the course of our implementation journey, we encountered a couple of different technical problems.
 
-To begin with, a bug in collision correction part leads to our particles' leaking out of the ground plane and bounding walls. (一个对应视频)
+To begin with, a bug in collision correction part leads to our particles' leaking out of the ground plane and bounding walls.
 
 After navigating through according code block, we locate our calculation bug and successfully address this issue.
 
-The next issue is about 
-
-### Lessons learned
+#### Lessons learned
 
 One of the critical lesson we've learned is to walk through several academic research paper and adjust the formulas and algorithm pseudo codes into mathematical and physical simulation model fitting our project code structure. Another lesson is that the basic infrastructure is very important. Lack of GPU and parallelization techniques have limited our computational power and we have to record our result video by the help of CPU. Additionally, the papers we've read enhanced us a lot about the theory behind fluid dynamics and particle simulation. Finally, together with teammates to tackle obstacles such as git version control, mysterious coding bugs is quite interesting and challenging.
 
 ### Results
 
 Below is a demonstration of our results with xxx shading:
-
-
 
 ##### <center>[Click here for final slides]()</center>
 
@@ -190,7 +188,6 @@ Below is a demonstration of our results with xxx shading:
 - [Smoothed Particle Hydrodynamics](http://adsabs.harvard.edu/full/1992ARA%26A..30..543M)
 - [Position Based Fluids[Macklin, Muller]](http://mmacklin.com/pbf_sig_preprint.pdf)
 - [FLUID SIMULATION SIGGRAPH 2007 Course Notes](https://www.cs.ubc.ca/~rbridson/fluidsimulation/fluids_notes.pdf)
-- 
 
 ### Contributions from each team member
 
@@ -206,7 +203,7 @@ Below is a demonstration of our results with xxx shading:
 
 ##### <center>[Click here for milestone slides](<https://drive.google.com/open?id=1hGhFIYccuz43eb13ja3d1o1CwRNDRuiS>)</center>
 
-## Summary
+### Summary
 
 While the Navier-Stokes equations can describe the fluid movement accurately, it was too computationally expensive to implement it to simulate the fluid. 
 
@@ -254,7 +251,7 @@ Up to now, we have basically implemented the algorithm described from the paper 
 
 However, the rendering procedure is far too slow and the fluid appears so coarse. We will set out to solve these problems in the remaining days.
 
-## Schedule Update
+### Schedule Update
 
 Week 1: Fine-grained water appearance. Consider adding one or more of these features. Preparing final report as well.
 
@@ -264,22 +261,19 @@ Week 2: Improve code structure and cleanliness. Create a satisfying result video
 
 ## <center><span id="proposal">Final Project Proposal</span></center>
 
-## Overview
+### Overview
 
 In the lectures, we saw several demonstrations of fluids simulation and we all found it excited to discover the theory behind it and to implement it by ourselves. As we know, accurate stimulations of fluids can be applied in a really wide range of areas and the final effects are really cool. That is the reason why we are so driven to pursue this technical challenge.
 
-Problem Description
--------------------
+### Problem Description
 
 Creating a fluid simulation means that we should simulate the fluid to match its real physical properties, which always leads to a high level of time complexity.  We aim to create an iterative density solver in this project, which will be integrated into the position based dynamics framework. We hope to be able to create a method that allows for similar incompressibility and convergence to modern smoothed particle hydrodynamic solvers, but inherits the stability of the geometric, position based dynamics method, allowing large time steps suitable for real-time applications.
 
-Goals and Deliverables
-----------------------
+### Goals and Deliverables
 
 Our baseline goal for this project is being able to create water/fluidic behavior between particles in a simulated environment. We expect to find some difficulties in correctly implementing the physics of the fluids, as well as making the particles have water like properties, and quantify the accuracy of our simulation by comparing its visual similarity to real life examples or real life observations. Ideally, we would be able to run a real time simulation, but that would be a bit more of a reach if we are ahead of schedule. Some other future goals we were thinking of are interactions between multiple bodies of water (dropping a large blob of water into a body of water) and simulating interactions between different Newtonian fluids.
 
-Schedule
---------
+### Schedule
 
 Week 1: Read resources listed below to get an idea of what to do. Outline pseudocode if possible.
 
@@ -291,8 +285,7 @@ Week 4: Debug - make already included features work together
 
 Finish the write-up as we go over the steps mentioned above.
 
-Resources
----------
+### Resources
 
 *   [Position Based Fluids paper](http://mmacklin.com/pbf_sig_preprint.pdf) in conjunction with [PositionBasedDynamics framework](https://github.com/InteractiveComputerGraphics/PositionBasedDynamics).
 *   We are very likely to use [OpenGL](http://www.opengl-tutorial.org/), so we will need to learn it.
