@@ -171,6 +171,8 @@ To begin with, a bug in collision correction part leads to our particles' leakin
 
 After navigating through according code block, we locate our calculation bug and successfully address this issue.
 
+The next issue is about particles explosion.
+
 #### Lessons learned
 
 One of the critical lesson we've learned is to walk through several academic research paper and adjust the formulas and algorithm pseudo codes into mathematical and physical simulation model fitting our project code structure. Another lesson is that the basic infrastructure is very important. Lack of GPU and parallelization techniques have limited our computational power and we have to record our result video by the help of CPU. Additionally, the papers we've read enhanced us a lot about the theory behind fluid dynamics and particle simulation. Finally, together with teammates to tackle obstacles such as git version control, mysterious coding bugs is quite interesting and challenging.
@@ -188,12 +190,15 @@ Below is a demonstration of our results with xxx shading:
 - [Smoothed Particle Hydrodynamics](http://adsabs.harvard.edu/full/1992ARA%26A..30..543M)
 - [Position Based Fluids[Macklin, Muller]](http://mmacklin.com/pbf_sig_preprint.pdf)
 - [FLUID SIMULATION SIGGRAPH 2007 Course Notes](https://www.cs.ubc.ca/~rbridson/fluidsimulation/fluids_notes.pdf)
+- [OpenGL tutorial](http://www.opengl-tutorial.org/)
 
 ### Contributions from each team member
 
-- Zhiming Xu 
-- Mingfang Zhang
-- Cheng Chen
+- Zhiming Xu worked on modeling different integration methods, as well as polishing shader programs.
+- Mingfang Zhang worked on implementing basic SPH algorithm, code for calculation of pressure, viscosity and gravity.
+- Cheng Chen worked on set up starter environment and infrastructure. Additionally, he implemented object-plane collision detection and correction.
+
+All three of us worked on creating slides, videos and reports.
 
 ---
 
